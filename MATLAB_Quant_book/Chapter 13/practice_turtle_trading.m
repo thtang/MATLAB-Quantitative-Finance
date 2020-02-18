@@ -252,5 +252,5 @@ true_bail(end)=min(true_value(end),bails(end));
 Value_add=[Dat.date,true_value-init_money,true_bail];
 
 positions=(Dat.num_of_position>0)+(Dat2.num_of_position>0);
-s = [summary; summary_add];
+s = [s; summary_add];
 display(s);

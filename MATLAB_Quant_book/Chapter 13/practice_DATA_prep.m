@@ -1,5 +1,5 @@
 %%
-code = 'NZD';
+code = 'EUR';
 % m = readtable('/AUD_USD Historical Data.csv');
 filename = ['C:\Users\tsunh\Desktop\Quant\MATLAB_Finance_quant\Chapter 13\data\',code,'_USD Historical Data.csv'];
 raw_data = readtable(filename);
