@@ -1,9 +1,7 @@
-summary = {'code', 'start time', 'end time', 'annualized rate of return',...
-    '# of transactions of rule 1', 'trading interval', 'odds', ...
-    '# of transactions of rule 2', 'trading interval', 'odds'};
-init_money = 10000000;
-level = 10;
-min_bail_rate = 10;
+function [value_add, summary, positions, Dat, Dat2]=FX_turtle_trading(...
+    code, init_money, level, min_bail_rate)
+
+Dat_raw=FX_DATA_prep(code);
 
 Dat=Dat_raw;
 
@@ -23,6 +21,7 @@ Dat.gain_of_trade=zeros(size(Dat.date));
 
 Dat.last_gain_of_trade=zeros(size(Dat.date));
 last_gain_of_trade=0;
+
 for daynumber=2:size(Dat,1)
     Dat.preclose(daynumber)=Dat.CLOSE(daynumber-1);
     
@@ -118,6 +117,7 @@ Dat2.stop_price=zeros(size(Dat2.date));
 Dat2.preclose=zeros(size(Dat2.date));
 Dat2.gain=zeros(size(Dat2.date));
 Dat2.gain_of_trade=zeros(size(Dat2.date));
+
 for daynumber=2:size(Dat2,1)
     Dat2.preclose(daynumber)=Dat2.CLOSE(daynumber-1);
     if Dat2.status(daynumber-1)==1 ||  Dat2.status(daynumber-1)==2
@@ -225,7 +225,7 @@ Dat2.bail=Dat2.num_of_position.*Dat2.CLOSE.*min_bail_rate/100*level;
 yr_rate=(exp(log(value(end)/value(1))/(length(value)/250))-1)*100;
 sys_1_no=sum(Dat.status==3)+ sum(Dat.status==6);
 sys_2_no=sum(Dat2.status==3)+ sum(Dat2.status==6);
-summary_add=[{code},... 
+summary=[{code},... 
     {datestr(Dat.date(1)),datestr(Dat.date(end))},... 
     {yr_rate},...
     {sys_1_no},...
@@ -249,8 +249,6 @@ for daynumber=1:size(value,1)-1
         *true_bail(daynumber)/bails(daynumber);
 end
 true_bail(end)=min(true_value(end),bails(end));
-Value_add=[Dat.date,true_value-init_money,true_bail];
+value_add=[Dat.date,true_value-init_money,true_bail];
 
 positions=(Dat.num_of_position>0)+(Dat2.num_of_position>0);
-s = [s; summary_add];
-display(s);

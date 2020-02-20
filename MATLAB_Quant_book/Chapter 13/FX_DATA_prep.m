@@ -1,12 +1,13 @@
-%%
-code = 'EUR';
+function Dat=FX_DATA_prep(code)
+
 % m = readtable('/AUD_USD Historical Data.csv');
-filename = ['C:\Users\tsunh\Desktop\Quant\MATLAB_Finance_quant\Chapter 13\data\',code,'_USD Historical Data.csv'];
+filename = ['C:\Users\tsunh\Desktop\Quant\MATLAB_Finance_quant\Chapter 13\data\',code,'.csv'];
 raw_data = readtable(filename);
 
 date_col = datenum(table2array(raw_data(:,1)));
-price_col = table2array(raw_data(:,[2,3,4]));
+price_col = table2array(raw_data(:,[3,4,5]));
 MAT = cat(2, date_col, price_col);
+
 ATR=[max([MAT(2:end,2)-MAT(2:end,3),MAT(2:end,2)-MAT(1:end-1,4), MAT(1:end-1,4)-MAT(2:end,3)],[],2)];
 N=movavg(double(ATR),20,20,0);
 Dat=dataset(MAT(2:end,1),MAT(2:end,2),MAT(2:end,3),MAT(2:end,4),ATR,N,...
@@ -35,4 +36,3 @@ for daynumber=56:size(Dat,1)
         (Dat.CLOSE(daynumber)>max(Dat.HIGH(daynumber-20:daynumber-1)));
 end
 Dat(1:55,:)=[];
-Dat_raw=Dat;
