@@ -4,6 +4,28 @@ summary = {'code', 'start time', 'end time', 'annualized rate of return',...
 
 filename = 'C:\Users\tsunh\Desktop\Quant\MATLAB_Finance_quant\Chapter 13\data\currency_list.csv';
 currency_list = readtable(filename);
+
+code = char(currency_list{1,1});
+init_money = 10000000;
+level = 10;
+min_bail_rate = 10;
+
+[value_add, summary_add, positions, Dat, Dat2]=FX_turtle_trading(...
+    code, init_money, level, min_bail_rate);
+%%
+% PnL curve
+figure;
+pnl = value_add(:,2)./init_money+1;
+plot(Dat.date, pnl);
+datetick('x', 'yyyy-mm-dd', 'keepticks');
+xlim([Dat.date(1) Dat.date(end)])
+ax = gca;
+ax.XTickLabelRotation = 45;
+
+%%
+plot(Dat.date, pnl, 'linewidth', 2);
+%% 
+% consider all currency
 for i=1:height(currency_list)
     code = char(currency_list{i,1});
     init_money = 10000000;

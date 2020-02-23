@@ -249,6 +249,6 @@ for daynumber=1:size(value,1)-1
         *true_bail(daynumber)/bails(daynumber);
 end
 true_bail(end)=min(true_value(end),bails(end));
-value_add=[Dat.date,true_value-init_money,true_bail];
+value_add=[Dat.date,true_value-init_money,true_value,true_bail];
 
 positions=(Dat.num_of_position>0)+(Dat2.num_of_position>0);
