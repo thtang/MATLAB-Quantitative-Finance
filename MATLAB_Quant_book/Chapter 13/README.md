@@ -10,3 +10,6 @@ You can make a table like this and save it in a csv file.
  
 Cumulative pnl graph
 * Print pnl of portfolio and assets and save them in a pdf. (something like below, with timeline in the X-axis.)
+
+### Reference
+[【live笔记】带你重新认识海龟交易策略, lostleaf](http://lostleaf.github.io/2019/09/11/%E5%B8%A6%E4%BD%A0%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86%E6%B5%B7%E9%BE%9F%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5/)
