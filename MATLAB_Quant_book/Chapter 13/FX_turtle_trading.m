@@ -1,7 +1,13 @@
 function [value_add, summary, positions, Dat, Dat2]=FX_turtle_trading(...
-    code, init_money, level, min_bail_rate)
+    code, init_money, level, min_bail_rate, period)
 
-Dat_raw=FX_DATA_prep(code);
+[Dat_raw, exchange_rate]=FX_DATA_prep(code, period);
+
+denomination = code(4:6);
+if strcmp(denomination, 'USD')==0
+    init_money = init_money*exchange_rate(1);
+    disp(['init_money:',num2str(init_money),' ',denomination]);
+end
 
 Dat=Dat_raw;
 
