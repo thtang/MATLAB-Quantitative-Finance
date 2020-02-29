@@ -1,7 +1,7 @@
 function [Dat, exchange_rate]=FX_DATA_prep(code, period)
 
 % m = readtable('/AUD_USD Historical Data.csv');
-filename = ['C:\Users\tsunh\Desktop\Quant\MATLAB_Finance_quant\Chapter 13\data\',code,'.csv'];
+filename = ['C:\Users\thtang\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\',code,'.csv'];
 raw_data = readtable(filename);
 
 exchange_rate = raw_data{[end-period,end],2};
