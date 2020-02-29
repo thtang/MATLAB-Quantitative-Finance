@@ -8,12 +8,12 @@ currency_list = readtable(filename);
 
 code = char(currency_list{17,1});
 init_money = 10000000;
-level = 1000;
+level =100000;
 min_bail_rate = 10;
 period = 804; %2017
 [value_add, summary_add, positions, Dat, Dat2]=FX_turtle_trading(...
     code, init_money, level, min_bail_rate, period);
-% summary = [summary; summary_add];
+summary = [summary; summary_add];
 %%
 % PnL curve
 figure;
