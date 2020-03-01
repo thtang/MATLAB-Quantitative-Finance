@@ -1,10 +1,8 @@
 function [Dat, exchange_rate]=FX_DATA_prep(code, period)
 
 % m = readtable('/AUD_USD Historical Data.csv');
-filename = ['C:\Users\thtang\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\',code,'.csv'];
+filename = ['C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\',code,'.csv'];
 raw_data = readtable(filename);
-
-exchange_rate = raw_data{[end-period,end],2};
 
 date_col = datenum(table2array(raw_data(end-period:end,1)));
 price_col = table2array(raw_data(end-period:end,[3,4,5]));

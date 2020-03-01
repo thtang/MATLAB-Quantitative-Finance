@@ -1,11 +1,11 @@
 function [value_add, summary, positions, Dat, Dat2]=FX_turtle_trading(...
     code, init_money, level, min_bail_rate, period)
 
-Dat_raw = FX_DATA_prep(code, period);
+[Dat_raw, exchange_rate]=FX_DATA_prep(code, period);
 
 denomination = code(4:6);
 if strcmp(denomination, 'USD')==0
-    init_money = init_money*Dat_raw.CLOSE(1);
+    init_money = init_money*exchange_rate(1);
     disp(['init_money:',num2str(init_money),' ',denomination]);
 end
 
@@ -246,21 +246,15 @@ for daynumber=1:size(value,1)-1
         (value(daynumber+1)-value(daynumber))...
         *true_bail(daynumber)/bails(daynumber);
 end
-
 true_bail(end)=min(true_value(end),bails(end));
-
 
 daily_return = tick2ret(true_value);
 
 volatility = std(daily_return);
 sr = mean(daily_return) / std(daily_return) * sqrt(250);
 
-if strcmp(denomination, 'USD')==0
-    value_add=[Dat.date,(true_value-init_money)./Dat_raw.CLOSE,...
-        true_value./Dat_raw.CLOSE,true_bail./Dat_raw.CLOSE];
-else
-    value_add=[Dat.date,true_value-init_money,true_value,true_bail];
-end
+value_add=[Dat.date,true_value-init_money,true_value,true_bail];
+
 positions=(Dat.num_of_position>0)+(Dat2.num_of_position>0);
 holding_period = sum(abs(positions))/ sum(abs(diff(positions)));
 summary=[{code},... 

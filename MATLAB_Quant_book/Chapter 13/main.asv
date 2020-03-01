@@ -81,9 +81,10 @@ ax.XTickLabelRotation = 45;
 daily_return_portfolio = tick2ret(value_portfolio.value+init_money);
 volatility_portfolio = std(daily_return_portfolio);
 sr_portfolio = mean(daily_return_portfolio) / std(daily_return_portfolio) * sqrt(250);
-holding_period_portfolio = sum(abs(position_portfolio.position))/ sum(abs(diff(position_portfolio.position)));
+holding_period = sum(abs(position_portfolio.position))/ sum(abs(diff(position_portfolio.posi)));
+display(['volatility_portfolio', volatility_portfolio,...
+    'sr', sr, 'holding_period', holding_period])
 
-output = sprintf('volatility_portfolio: %f, sr: %f, holding period: %f',volatility_portfolio, sr_portfolio, holding_period_portfolio);
 %% save results
 T = cell2table(summary(2:end,:),'VariableNames',{'code', 'start_time', 'end_time',...
     'annualized_rate_of_return',  'n_of_transacqtions_of_rule_1', 'trading_interval_1', 'odds_1', ...
