@@ -90,4 +90,4 @@ T = cell2table(summary(2:end,:),'VariableNames',{'code', 'start_time', 'end_time
     'n_of_transactions_of_rule_2', 'trading_interval_2', 'odds_2', 'volatility', 'sharpe_ratio', 'holding_period'});
 %% 
 % Write the table to a CSV file
-writetable(T,'C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\results_20200226_02.csv')
+writetable(T,'C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\results_20200302_01.csv')
