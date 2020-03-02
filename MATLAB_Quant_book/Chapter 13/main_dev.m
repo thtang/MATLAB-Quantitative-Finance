@@ -3,10 +3,29 @@ summary = {'code', 'start time', 'end time', 'annualized rate of return',...
     '# of transactions of rule 2', 'trading interval', 'odds', ...
     'volatility', 'sharpe ratio', 'holding period'};
 metrics = {'code', 'start time', 'end time', 'volatility', 'sharpe ratio', 'holding period'};
-
-filename = 'C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\currency_list.csv';
+data_path = 'C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\';
+filename = [data_path,'currency_list.csv'];
 currency_list = readtable(filename);
 
+code = char(currency_list{17,1});
+init_money = 10000000;
+level =100000;
+min_bail_rate = 10;
+period = 804; %2017
+[value_add, summary_add, positions, Dat, Dat2]=FX_turtle_trading(...
+    code, init_money, level, min_bail_rate, period); %value_add=[Dat.date,true_value-init_money,true_value,true_bail];
+% summary = [summary; summary_add];
+%%
+% PnL curve
+figure;
+pnl = value_add(:,2)./init_money+1;
+plot(Dat.date, pnl);
+datetick('x', 'yyyy-mm-dd', 'keepticks');
+xlim([Dat.date(1) Dat.date(end)])
+ax = gca;
+ax.XTickLabelRotation = 45;
+title([code,' PnL'])
+saveas(ax, [data_path,'figures\',code,'.png']);
 %% 
 % consider all currency
 for i=1:height(currency_list)
@@ -14,7 +33,7 @@ for i=1:height(currency_list)
     init_money = 10000000;
     level = 1000;
     min_bail_rate = 10;
-    period = 2631;
+    period = 804;
     [value_add, summary_add, positions, Dat, Dat2]=FX_turtle_trading(...
         code, init_money, level, min_bail_rate, period);
     summary = [summary; summary_add];
@@ -30,6 +49,7 @@ for i=1:height(currency_list)
             'keys', 'date', 'mergekeys', true, 'type', 'outer');
     end
 end
+%%
 % fill in na value
 for col=2:size(value,2)
     if isnan(double(value(1,col)))
@@ -42,10 +62,19 @@ for col=2:size(value,2)
         end
     end
 end
-%% performance metrics (portfolio)
+
 value_portfolio = mat2dataset([value.date,sum(double(value(:,2:end)),2)],'VarNames',{'date','value'});
 position_portfolio = mat2dataset([position.date, nansum(double(position(:,2:end)),2)],'VarNames',{'date','position'});
+%%
+figure;
+pnl_portfolio = value_portfolio.value/(init_money*size(currency_list,1))+1;
+plot(value_portfolio.date, pnl_portfolio);
+datetick('x', 'yyyy-mm-dd', 'keepticks');
+xlim([value_portfolio.date(1) value_portfolio.date(end)])
+ax = gca;
+ax.XTickLabelRotation = 45;
 
+%% performance metrics (portfolio)
 daily_return_portfolio = tick2ret(value_portfolio.value+init_money);
 volatility_portfolio = std(daily_return_portfolio);
 sr_portfolio = mean(daily_return_portfolio) / std(daily_return_portfolio) * sqrt(250);
@@ -61,6 +90,6 @@ T = cell2table(summary(2:end,:),'VariableNames',{'code', 'start_time', 'end_time
 
 M = cell2table(metrics_output(2:end,:),'VariableNames',{'code', 'start_time', 'end_time', 'volatility', ...
     'sharpe_ratio', 'holding_period'});
-
-
-writetable(M,[data_path,'results\metrics_20200302_04_2631.csv'])
+%% 
+% Write the table to a CSV file
+writetable(M,[data_path,'results\metrics_20200302_02.csv'])
