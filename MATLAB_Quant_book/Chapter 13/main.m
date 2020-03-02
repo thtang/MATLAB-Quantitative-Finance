@@ -14,7 +14,7 @@ for i=1:height(currency_list)
     init_money = 10000000;
     level = 1000;
     min_bail_rate = 10;
-    period = 2631;
+    period = 879;
     [value_add, summary_add, positions, Dat, Dat2]=FX_turtle_trading(...
         code, init_money, level, min_bail_rate, period);
     summary = [summary; summary_add];
