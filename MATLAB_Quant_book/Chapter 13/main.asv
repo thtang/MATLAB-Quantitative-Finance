@@ -1,9 +1,10 @@
-function [M, T] = main(volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close, period)
+function [M, T] = main(volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close)
 
 summary = {'code', 'start time', 'end time', 'annualized rate of return',...
     '# of transactions of rule 1', 'trading interval', 'odds', ...
     '# of transactions of rule 2', 'trading interval', 'odds', ...
     'volatility', 'sharpe ratio', 'holding period'};
+metrics = {'code', 'start time', 'end time', 'volatility', 'sharpe ratio', 'holding period'};
 
 metrics = {'code', 'start time', 'end time', 'volatility', 'sharpe ratio', 'holding period'};
 data_path = 'C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\';

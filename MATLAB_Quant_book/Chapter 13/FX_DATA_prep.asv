@@ -1,4 +1,4 @@
-function Dat=FX_DATA_prep(code, period, volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close)
+function [Dat, exchange_rate]=FX_DATA_prep(code, period, volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close)
 
 % m = readtable('/AUD_USD Historical Data.csv');
 filename = ['C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\',code,'.csv'];
@@ -18,7 +18,7 @@ Dat.signal_2=zeros(size(Dat.date));
 Dat.quit_1=zeros(size(Dat.date));
 Dat.quit_2=zeros(size(Dat.date));
 
-for daynumber=(sys2_open+1):size(Dat,1)  
+for daynumber=56:size(Dat,1)  
     Dat.signal_1(daynumber)=(Dat.CLOSE(daynumber)>...
         max(Dat.HIGH(daynumber-sys1_open:daynumber-1)))-...
         (Dat.CLOSE(daynumber)<min(Dat.LOW(daynumber-sys1_open:daynumber-1)));
@@ -28,11 +28,11 @@ for daynumber=(sys2_open+1):size(Dat,1)
         (Dat.CLOSE(daynumber)>max(Dat.HIGH(daynumber-sys1_close:daynumber-1)));
 
     Dat.signal_2(daynumber)=(Dat.CLOSE(daynumber)>...
-        max(Dat.HIGH(daynumber-sys2_open:daynumber-1)))-...
-        (Dat.CLOSE(daynumber)<min(Dat.LOW(daynumber-sys2_open:daynumber-1)));
+        max(Dat.HIGH(daynumber-55:daynumber-1)))-...
+        (Dat.CLOSE(daynumber)<min(Dat.LOW(daynumber-55:daynumber-1)));
 
     Dat.quit_2(daynumber)=-(Dat.CLOSE(daynumber)<...
-        min(Dat.LOW(daynumber-sys2_close:daynumber-1)))+...
-        (Dat.CLOSE(daynumber)>max(Dat.HIGH(daynumber-sys2_close:daynumber-1)));
+        min(Dat.LOW(daynumber-20:daynumber-1)))+...
+        (Dat.CLOSE(daynumber)>max(Dat.HIGH(daynumber-20:daynumber-1)));
 end
 Dat(1:55,:)=[];
