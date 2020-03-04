@@ -12,8 +12,15 @@ init_money = 10000000;
 level =100000;
 min_bail_rate = 10;
 period = 804; %2017
+
+volatility_smoothing = 20;
+sys1_open = 20;
+sys1_close = 10;
+sys2_open = 55;
+sys2_close = 20;
 [value_add, summary_add, positions, Dat, Dat2]=FX_turtle_trading(...
-    code, init_money, level, min_bail_rate, period); %value_add=[Dat.date,true_value-init_money,true_value,true_bail];
+        code, init_money, level, min_bail_rate, period, volatility_smoothing, ...
+        sys1_open, sys1_close, sys2_open, sys2_close);  %value_add=[Dat.date,true_value-init_money,true_value,true_bail];
 % summary = [summary; summary_add];
 %%
 % PnL curve
@@ -33,9 +40,15 @@ for i=1:height(currency_list)
     init_money = 10000000;
     level = 1000;
     min_bail_rate = 10;
-    period = 804;
+    period = 804; %2017
+    volatility_smoothing = 20;
+    sys1_open = 20;
+    sys1_close = 10;
+    sys2_open = 55;
+    sys2_close = 20;
     [value_add, summary_add, positions, Dat, Dat2]=FX_turtle_trading(...
-        code, init_money, level, min_bail_rate, period);
+        code, init_money, level, min_bail_rate, period, volatility_smoothing, ...
+        sys1_open, sys1_close, sys2_open, sys2_close);
     summary = [summary; summary_add];
     metrics = [metrics; summary_add([1,2,3,11,12,13])];
     
