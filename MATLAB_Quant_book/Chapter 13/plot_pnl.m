@@ -16,13 +16,12 @@ legend(['Portfolio', legend_dollar],'FontSize',7, 'Location','northwest');
 datetick('x', 'yyyy-mm-dd', 'keeplimits');
 xlim([value_portfolio.date(1) value_portfolio.date(end)])
 ax = gca;
-ax.XTickLabelRotation = 45;
 ax.ColorOrder = [1 0.5 0; 0.5 0 1; 0 0.5 0.3];
 ax.LineStyleOrder = {'-','--',':'};
 set(gcf, 'Position',  [100, 100, 1200, 600])
 
 data_path = 'C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\';
-output_name = sprintf('figures\\pnl_%d_%d_%d_%d_%d_%d.png',...
+output_name = sprintf('figures\\pnl_20200304_%d_%d_%d_%d_%d_%d.png',...
     volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close, period);
 saveas(ax, [data_path,output_name]);
 % fig.PaperPositionMode = 'auto';
