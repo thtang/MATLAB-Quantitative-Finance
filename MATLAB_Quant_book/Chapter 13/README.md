@@ -4,7 +4,8 @@ calculate the following for each asset and portfolio (you align pnls for differe
 * SR = average(daily return) / std(daily return) * sqrt(250)  (On this large set of currencies, we expect a SR close to 1.)
 * Holding period = avg(abs(position)) / avg(abs(diff(position)). You do this for each asset, and average the holding period across asset to get the portfolio holding period.
 
-Accounting
+**Accounting**
+
 Assume the following.
 
 * On day t-1, you hold a position Pos(t-1)
