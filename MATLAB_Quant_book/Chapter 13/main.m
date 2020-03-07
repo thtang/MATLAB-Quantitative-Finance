@@ -1,5 +1,5 @@
 function [M, T] = main(volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close, period)
-
+%%
 summary = {'code', 'start time', 'end time', 'annualized rate of return',...
     '# of transactions of rule 1', 'trading interval', 'odds', ...
     '# of transactions of rule 2', 'trading interval', 'odds', ...
@@ -14,7 +14,7 @@ currency_list = readtable(filename);
 % consider all currency
 for i=1:height(currency_list)
     code = char(currency_list{i,1});
-    init_money = 10000000;
+    init_money = 10000000; %USD
     level = 1000;
     min_bail_rate = 10;
 %     period = 2360;
@@ -74,6 +74,10 @@ T = cell2table(summary(2:end,:),'VariableNames',{'code', 'start_time', 'end_time
 M = cell2table(metrics_output(2:end,:),'VariableNames',{'code', 'start_time', 'end_time', 'volatility', ...
     'sharpe_ratio', 'holding_period'});
 
-output_name = sprintf('results\\metrics_20200304_%d_%d_%d_%d_%d_%d.csv',...
+output_name = sprintf('results\\20200307\\metrics\\metrics_%d_%d_%d_%d_%d_%d.csv',...
     volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close, period);
 writetable(M, [data_path,output_name]);
+
+output_name = sprintf('results\\20200307\\summary\\summary_%d_%d_%d_%d_%d_%d.csv',...
+    volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close, period);
+writetable(T , [data_path,output_name]);

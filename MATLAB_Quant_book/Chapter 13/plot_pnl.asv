@@ -20,14 +20,20 @@ ax = gca;
 ax.ColorOrder = [1 0.5 0; 0.5 0 1; 0 0.5 0.3];
 ax.LineStyleOrder = {'-','--',':'};
 set(gcf, 'Position',  [100, 100, 1200, 600])
-% set(gcf, 'PaperPosition',  [0, 0, 100, 50])
-title(['Cumulative pnl graph (',sprintf('%d, %d, %d, %d, %d',volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close),')'])
+
+outerpos = ax.OuterPosition;
+ti = ax.TightInset; 
+left = outerpos(1) + ti(1);
+bottom = outerpos(2) + ti(2);
+ax_width = outerpos(3) - ti(1) - ti(3);
+ax_height = outerpos(4) - ti(2) - ti(4);
+ax.Position = [left bottom ax_width ax_height];
 
 data_path = 'C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\';
-output_name = sprintf('figures\\20200307\\pnl_20200307_%d_%d_%d_%d_%d_%d',...
+output_name = sprintf('figures\\pnl_20200307_%d_%d_%d_%d_%d_%d.ps',...
     volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close, period);
 
-print(fig,fullfile(data_path, output_name),'-dpng','-r0')
+print(fig,fullfile(data_path, outp,'-dpdf')
 % saveas(ax, [data_path,output_name]);
 % fig.PaperPositionMode = 'auto';
 % print(fig, [data_path,'figures\pnl'],'-dpng','-bestfit','BestFitFigure')
