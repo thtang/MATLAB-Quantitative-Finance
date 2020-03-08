@@ -24,7 +24,7 @@ set(gcf, 'Position',  [100, 100, 1200, 600])
 title(['Cumulative pnl graph (',sprintf('%d, %d, %d, %d, %d',volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close),')'])
 
 data_path = 'C:\Users\tsunh\Documents\GitHub\MATLAB-Quantitative-Finance\MATLAB_Quant_book\Chapter 13\data\';
-output_name = sprintf('figures\\20200307\\pnl_20200307_%d_%d_%d_%d_%d_%d',...
+output_name = sprintf('figures\\20200308\\pnl_%d_%d_%d_%d_%d_%d',...
     volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close, period);
 
 print(fig,fullfile(data_path, output_name),'-dpng','-r0')

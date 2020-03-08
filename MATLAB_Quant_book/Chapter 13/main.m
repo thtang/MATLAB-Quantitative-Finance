@@ -1,4 +1,4 @@
-function [M, T] = main(volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close, period)
+function [M, T, value_portfolio] = main(volatility_smoothing, sys1_open, sys1_close, sys2_open, sys2_close, period)
 %%
 summary = {'code', 'start time', 'end time', 'annualized rate of return',...
     '# of transactions of rule 1', 'trading interval', 'odds', ...
@@ -57,7 +57,7 @@ position_portfolio = mat2dataset([position.date, nansum(double(position(:,2:end)
 daily_return_portfolio = tick2ret(value_portfolio.value+init_money);
 volatility_portfolio = std(daily_return_portfolio);
 sr_portfolio = mean(daily_return_portfolio) / std(daily_return_portfolio) * sqrt(250);
-holding_period_portfolio = sum(abs(position_portfolio.position))/ sum(abs(diff(position_portfolio.position)));
+holding_period_portfolio = mean(cell2mat(metrics(2:end,6)));
 
 output = sprintf('volatility_portfolio: %f, sr: %f, holding period: %f',volatility_portfolio, sr_portfolio, holding_period_portfolio);
 metrics_output = [metrics(1,:); {'Portfolio', datestr(value_portfolio.date(1)), datestr(value_portfolio.date(end)),...
