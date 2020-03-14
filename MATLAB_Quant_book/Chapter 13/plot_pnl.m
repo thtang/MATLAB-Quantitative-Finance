@@ -4,7 +4,7 @@ fig =  figure;
 x = dataset2cell(value(:,2:end));
 legend_dollar = x(1,:);
 lines = cell2mat(x(2:end,:));
-pnl_portfolio = value_portfolio.value;
+pnl_portfolio = value_portfolio.value+init_money*27;
 % lines = [lines,pnl_portfolio];
 set(gca,'linestyleorder',{'-',':','-.','--'},...
 'nextplot','add')
