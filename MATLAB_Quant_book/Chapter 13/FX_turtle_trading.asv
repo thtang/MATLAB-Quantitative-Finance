@@ -95,7 +95,7 @@ for daynumber=2:size(Dat,1)
     end
     
     if Dat.status(daynumber)==2 || Dat.status(daynumber)==3
-        Dat.gain(daynumber)=Dat.CLOSE(daynumber)-Dat.preclose(daynumber);
+        Dat.gain(daynumber)=(Dat.CLOSE(daynumber)-Dat.preclose(daynumber));
     end
     
     if Dat.status(daynumber)==5 || Dat.status(daynumber)==6
@@ -265,12 +265,12 @@ net_profit = Dat.gain_after_adj.*Dat.num_of_position + Dat2.gain.*Dat2.num_of_po
 
 daily_return = Dat.gain_after_adj+Dat2.gain;
 % daily_return(isinf(daily_return)|isnan(daily_return)) = 0;
-volatility = std(net_profit);
-sr = mean(net_profit) / std(net_profit) * sqrt(250);
+volatility = std(daily_return);
+sr = mean(daily_return) / std(daily_return) * sqrt(250);
 
 if strcmp(denomination, 'USD')==0
     value_add=[Dat.date, ...
-        daily_return./Dat_raw.CLOSE,...
+        daily_return,...
         net_profit./Dat_raw.CLOSE,... 
         true_bail./Dat_raw.CLOSE];
 else
